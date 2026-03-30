@@ -240,6 +240,30 @@ input[type=radio]{accent-color:#4ecdc4;}
 .export-btn:hover{background:rgba(196,155,56,.2);border-color:#d4a843;color:#d4a843;}
 .export-note{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(120,110,90,.5);}
 
+/* ── CHECKER TABS ── */
+.checker-tabs{display:flex;gap:0;margin-bottom:18px;border-bottom:1px solid rgba(255,255,255,.08);}
+.checker-tab{
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;padding:7px 18px;cursor:pointer;
+  background:transparent;border:none;
+  color:rgba(140,130,110,.5);border-bottom:2px solid transparent;
+  margin-bottom:-1px;transition:all .15s;
+}
+.checker-tab.active{color:#4ecdc4;border-bottom-color:#4ecdc4;}
+.checker-tab:hover:not(.active){color:rgba(200,185,155,.7);}
+.checker-pane{display:none;}
+.checker-pane.active{display:block;}
+
+/* ── TRIPLE CANVAS ── */
+#jt-canvas-wrap{
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(78,205,196,.12);
+  border-radius:3px;
+  padding:0;overflow:hidden;
+  margin-bottom:16px;
+}
+#jt-triple-canvas{width:100%;display:block;}
+
 /* ── SPECTRUM VISUAL ── */
 .spectrum{
   background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.06);
@@ -267,7 +291,7 @@ footer{
 <header class="site-header">
   <h1>The <em>Jump Theorem</em> — Prime Checker</h1>
   <span class="sub">Wessen Getachew · 2026 · math.NT</span>
-  <a class="back-link" href="https://wessengetachew.github.io/Sierpi-ski/">← Full Presentation</a>
+  <a class="back-link" href="lift_survival_presentation.html">← Full Presentation</a>
 </header>
 
 <div class="page">
@@ -414,17 +438,35 @@ For any integer prime p, the discriminant 1&nbsp;+&nbsp;4p(p−1)&nbsp;=&nbsp;(2
     <button class="check-btn" onclick="jt_check()">Check</button>
   </div>
 
-  <!-- Display modes -->
-  <div class="disp-row">
-    <span class="disp-label">Display:</span>
-    <label><input type="radio" name="jt-disp" value="sci" checked onchange="jt_check()"> Scientific</label>
-    <label><input type="radio" name="jt-disp" value="frac" onchange="jt_check()"> Fraction</label>
-    <label><input type="radio" name="jt-disp" value="rel" onchange="jt_check()"> Relative to p=2</label>
-    <label><input type="radio" name="jt-disp" value="geo" onchange="jt_check()"> Geometry</label>
+  <!-- Tabs -->
+  <div class="checker-tabs">
+    <button class="checker-tab active" id="tab-text" onclick="jtSwitchTab('text')">Text</button>
+    <button class="checker-tab" id="tab-canvas" onclick="jtSwitchTab('canvas')">Canvas</button>
   </div>
 
-  <!-- Result -->
-  <div class="result-area" id="jt-out">Enter n ≥ 1 and press Check — or click a preset above.</div>
+  <!-- TEXT PANE -->
+  <div class="checker-pane active" id="pane-text">
+    <!-- Display modes -->
+    <div class="disp-row">
+      <span class="disp-label">Display:</span>
+      <label><input type="radio" name="jt-disp" value="sci" checked onchange="jt_check()"> Scientific</label>
+      <label><input type="radio" name="jt-disp" value="frac" onchange="jt_check()"> Fraction</label>
+      <label><input type="radio" name="jt-disp" value="rel" onchange="jt_check()"> Relative to p=2</label>
+      <label><input type="radio" name="jt-disp" value="geo" onchange="jt_check()"> Geometry</label>
+    </div>
+    <!-- Result -->
+    <div class="result-area" id="jt-out">Enter n ≥ 1 and press Check — or click a preset above.</div>
+  </div>
+
+  <!-- CANVAS PANE -->
+  <div class="checker-pane" id="pane-canvas">
+    <div id="jt-canvas-wrap">
+      <canvas id="jt-triple-canvas"></canvas>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(120,110,90,.5);margin-bottom:12px;line-height:1.7;">
+      Top: C(x) — Euler product decay.&nbsp;&nbsp;Middle: D(x) — log-derivative with prime jumps.&nbsp;&nbsp;Bottom: Jump spectrum s = 1/(p(p−1)) log-scale.
+    </div>
+  </div>
 
   <!-- Export -->
   <div class="export-row" id="jt-export-row">
@@ -918,11 +960,297 @@ function jt_check(){
   // Show export button
   var er=document.getElementById('jt-export-row');if(er)er.style.display='block';
   var en=document.getElementById('jt-export-n');if(en)en.textContent=n.toLocaleString();
+  // Refresh canvas if visible
+  if(document.getElementById('pane-canvas').classList.contains('active')) jtDrawTriple();
 }
 
 function jtPreset(n){
   document.getElementById('jt-n').value=n;
   jt_check();
+}
+
+// ── TAB SWITCH ──
+function jtSwitchTab(tab){
+  document.getElementById('tab-text').classList.toggle('active', tab==='text');
+  document.getElementById('tab-canvas').classList.toggle('active', tab==='canvas');
+  document.getElementById('pane-text').classList.toggle('active', tab==='text');
+  document.getElementById('pane-canvas').classList.toggle('active', tab==='canvas');
+  if(tab==='canvas') jtDrawTriple();
+}
+
+// ── TRIPLE CANVAS ──
+function jtDrawTriple(){
+  var cv = document.getElementById('jt-triple-canvas');
+  if(!cv) return;
+  var nRaw = parseInt(document.getElementById('jt-n').value);
+  var n = (!nRaw || nRaw < 1) ? 7 : nRaw;
+
+  var dpr = window.devicePixelRatio || 1;
+  var W = cv.parentElement.clientWidth || 700;
+  var PH = 160; // per-panel height
+  var GAP = 1;
+  var H = PH * 3 + GAP * 2;
+  cv.style.height = H + 'px';
+  cv.width = Math.round(W * dpr);
+  cv.height = Math.round(H * dpr);
+  var ctx = cv.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  // Background
+  ctx.fillStyle = '#05040a';
+  ctx.fillRect(0, 0, W, H);
+
+  var PAD = {l:48, r:20, t:24, b:28};
+  var iW = W - PAD.l - PAD.r;
+
+  // Determine x-range based on n
+  var xMax = Math.min(Math.max(n * 1.5, 30), 120);
+  // clamp so small n still shows context
+  if(n <= 5) xMax = 20;
+  else if(n <= 15) xMax = 40;
+
+  var isP_n = (function(){if(n<2)return false;for(var i=2;i*i<=n;i++)if(n%i===0)return false;return true;})();
+
+  // Helper: map x-value → pixel x
+  function px(xv){ return PAD.l + (xv / xMax) * iW; }
+  // Helper: map y in [yMin,yMax] → pixel y within a panel
+  function py(yv, yMin, yMax, panelY0){
+    return panelY0 + PAD.t + (1 - (yv - yMin)/(yMax - yMin)) * (PH - PAD.t - PAD.b);
+  }
+
+  // ── GRID helper ──
+  function drawAxes(panelY0, yMin, yMax, yLabel, col){
+    ctx.strokeStyle = 'rgba(255,255,255,.07)';
+    ctx.lineWidth = 1;
+    // x-axis
+    ctx.beginPath();
+    ctx.moveTo(PAD.l, panelY0 + PH - PAD.b);
+    ctx.lineTo(PAD.l + iW, panelY0 + PH - PAD.b);
+    ctx.stroke();
+    // y-axis
+    ctx.beginPath();
+    ctx.moveTo(PAD.l, panelY0 + PAD.t);
+    ctx.lineTo(PAD.l, panelY0 + PH - PAD.b);
+    ctx.stroke();
+    // y gridlines × 3
+    var yVals = [yMin, (yMin+yMax)/2, yMax];
+    yVals.forEach(function(yv){
+      var yp = py(yv, yMin, yMax, panelY0);
+      ctx.beginPath();
+      ctx.moveTo(PAD.l, yp); ctx.lineTo(PAD.l + iW, yp);
+      ctx.strokeStyle = 'rgba(255,255,255,.04)'; ctx.stroke();
+      ctx.font = '9px JetBrains Mono,monospace';
+      ctx.fillStyle = 'rgba(140,130,110,.45)';
+      ctx.textAlign = 'right';
+      ctx.fillText(yv.toFixed(yv===0?0:3), PAD.l - 4, yp + 3);
+    });
+    // x-axis tick labels at primes
+    PRIMES.slice(0, 10).forEach(function(p){
+      if(p > xMax) return;
+      var xp = px(p - 1);
+      ctx.font = '8px JetBrains Mono,monospace';
+      ctx.fillStyle = 'rgba(78,205,196,.35)';
+      ctx.textAlign = 'center';
+      ctx.fillText(p, xp, panelY0 + PH - PAD.b + 14);
+    });
+    // Panel label
+    ctx.font = 'bold 9px JetBrains Mono,monospace';
+    ctx.fillStyle = 'rgba(' + col + ',.7)';
+    ctx.textAlign = 'left';
+    ctx.fillText(yLabel, PAD.l + 6, panelY0 + PAD.t + 10);
+  }
+
+  // ── PANEL 0: C(x) ──
+  var p0Y = 0;
+  // compute y range
+  var C_vals = [];
+  var NP = 200;
+  for(var i=0;i<=NP;i++) C_vals.push(computeC(i/NP*xMax));
+  var cMin = Math.min.apply(null,C_vals)*0.98, cMax = Math.max.apply(null,C_vals)*1.02;
+  cMax = Math.min(cMax, 1);
+  drawAxes(p0Y, cMin, cMax, 'C(x) — Euler product', '212,168,67');
+
+  // Draw C curve
+  ctx.beginPath();
+  for(var i=0;i<=NP;i++){
+    var xv = i/NP*xMax;
+    var yv = computeC(xv);
+    var xp2 = px(xv), yp2 = py(yv, cMin, cMax, p0Y);
+    i===0 ? ctx.moveTo(xp2,yp2) : ctx.lineTo(xp2,yp2);
+  }
+  ctx.strokeStyle='rgba(212,168,67,.8)'; ctx.lineWidth=1.5; ctx.stroke();
+
+  // Prime saturation verticals
+  PRIMES.slice(0,12).forEach(function(p){
+    if(p-1 > xMax) return;
+    var xp2 = px(p-1);
+    ctx.beginPath(); ctx.moveTo(xp2, p0Y+PAD.t); ctx.lineTo(xp2, p0Y+PH-PAD.b);
+    ctx.strokeStyle='rgba(78,205,196,.08)'; ctx.lineWidth=1; ctx.stroke();
+  });
+
+  // Mark current n on C(x)
+  if(n >= 1 && n-1 <= xMax){
+    var cx_n = px(n-1), cy_n = py(computeC(n-1), cMin, cMax, p0Y);
+    ctx.beginPath(); ctx.arc(cx_n, cy_n, 5, 0, 2*Math.PI);
+    ctx.fillStyle = isP_n ? 'rgba(78,205,196,1)' : 'rgba(232,85,64,.9)'; ctx.fill();
+    var label_c = 'n=' + n.toLocaleString() + (isP_n?' ✓':' ✗');
+    ctx.font='10px JetBrains Mono,monospace';
+    ctx.fillStyle = isP_n ? 'rgba(78,205,196,.9)' : 'rgba(232,85,64,.85)';
+    ctx.textAlign = cx_n > W*0.75 ? 'right' : 'left';
+    ctx.fillText(label_c, cx_n + (cx_n > W*0.75 ? -8:8), cy_n - 8);
+  }
+
+  // ── SEPARATOR ──
+  ctx.fillStyle = 'rgba(255,255,255,.05)';
+  ctx.fillRect(0, PH, W, GAP);
+
+  // ── PANEL 1: D(x) ──
+  var p1Y = PH + GAP;
+  var D_vals = [];
+  // sample D finely, skip near prime discontinuities
+  var xSamples = [];
+  for(var i=0;i<=400;i++){
+    var xv = i/400*xMax;
+    // avoid exact prime-1 points (discontinuity)
+    var skip = false;
+    for(var pi=0;pi<PRIMES.length;pi++){
+      if(Math.abs(xv-(PRIMES[pi]-1)) < 0.02){skip=true;break;}
+    }
+    if(!skip){ xSamples.push(xv); D_vals.push(computeD(xv)); }
+  }
+  var dMin = Math.min.apply(null,D_vals), dMax = Math.max.apply(null,D_vals);
+  // Pad slightly
+  var dRange = dMax - dMin; if(dRange < 0.001) dRange = 0.1;
+  dMin -= dRange*0.05; dMax += dRange*0.1;
+  drawAxes(p1Y, dMin, dMax, 'D(x) — log-derivative, prime jumps', '78,205,196');
+
+  // Draw D curve in segments (break at prime-1 points)
+  ctx.strokeStyle = 'rgba(78,205,196,.75)'; ctx.lineWidth = 1.5;
+  var inPath = false;
+  for(var i=0;i<xSamples.length;i++){
+    var xv = xSamples[i], yv = D_vals[i];
+    // detect segment break
+    if(i > 0 && Math.abs(xSamples[i] - xSamples[i-1]) > 0.15){
+      ctx.stroke(); inPath = false;
+    }
+    var xp2 = px(xv), yp2 = py(yv, dMin, dMax, p1Y);
+    if(!inPath){ ctx.beginPath(); ctx.moveTo(xp2,yp2); inPath=true; }
+    else ctx.lineTo(xp2, yp2);
+  }
+  if(inPath) ctx.stroke();
+
+  // Draw jump markers at primes
+  PRIMES.forEach(function(p){
+    if(p-1 > xMax) return;
+    var xp2 = px(p-1);
+    var s = 1/(p*(p-1));
+    var yBefore = computeD(p-1-0.05);
+    var yAfter  = computeD(p-1+0.05);
+    // vertical jump line
+    ctx.beginPath();
+    ctx.moveTo(xp2, py(yBefore, dMin, dMax, p1Y));
+    ctx.lineTo(xp2, py(yAfter,  dMin, dMax, p1Y));
+    ctx.strokeStyle = (p===n&&isP_n) ? 'rgba(212,168,67,1)' : 'rgba(78,205,196,.5)';
+    ctx.lineWidth = (p===n&&isP_n) ? 2 : 1;
+    ctx.stroke();
+    // tick label
+    ctx.font = '8px JetBrains Mono,monospace';
+    ctx.fillStyle = (p===n&&isP_n) ? 'rgba(212,168,67,.9)' : 'rgba(78,205,196,.4)';
+    ctx.textAlign = 'center';
+    ctx.fillText('p'+p, xp2, p1Y + PAD.t - 2);
+  });
+
+  // Highlight n marker
+  if(n >= 2 && n-1 <= xMax && isP_n){
+    var xp2 = px(n-1);
+    var yAtN = computeD(n-1+0.05);
+    var ypAtN = py(yAtN, dMin, dMax, p1Y);
+    ctx.beginPath(); ctx.arc(xp2, ypAtN, 5, 0, 2*Math.PI);
+    ctx.fillStyle='rgba(212,168,67,1)'; ctx.fill();
+    var s_n = 1/(n*(n-1));
+    ctx.font='10px JetBrains Mono,monospace';
+    ctx.fillStyle='rgba(212,168,67,.9)';
+    ctx.textAlign = xp2 > W*0.75 ? 'right' : 'left';
+    ctx.fillText('Δ=1/'+( n*(n-1)).toLocaleString(), xp2+(xp2>W*0.75?-8:8), ypAtN-8);
+  }
+
+  // ── SEPARATOR ──
+  ctx.fillStyle = 'rgba(255,255,255,.05)';
+  ctx.fillRect(0, 2*PH+GAP, W, GAP);
+
+  // ── PANEL 2: Jump spectrum (log-scale p-axis) ──
+  var p2Y = 2*(PH + GAP);
+  var specPrimes = PRIMES.filter(function(p){return p<=300;});
+  var specS = specPrimes.map(function(p){return 1/(p*(p-1));});
+  var sMax = 0.55, sMin = 0;
+  // Use log scale on x axis for p
+  var logPmin = Math.log(1.5), logPmax = Math.log(310);
+
+  function specPX(p){ return PAD.l + (Math.log(p)-logPmin)/(logPmax-logPmin)*iW; }
+  function specPY(s){ return p2Y + PAD.t + (1-s/sMax)*(PH-PAD.t-PAD.b); }
+
+  // Axes
+  ctx.strokeStyle='rgba(255,255,255,.07)'; ctx.lineWidth=1;
+  ctx.beginPath();
+  ctx.moveTo(PAD.l, p2Y+PH-PAD.b); ctx.lineTo(PAD.l+iW, p2Y+PH-PAD.b); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(PAD.l, p2Y+PAD.t); ctx.lineTo(PAD.l, p2Y+PH-PAD.b); ctx.stroke();
+
+  // y gridlines
+  [0, 0.25, 0.5].forEach(function(s){
+    var yp2 = specPY(s);
+    ctx.beginPath(); ctx.moveTo(PAD.l, yp2); ctx.lineTo(PAD.l+iW, yp2);
+    ctx.strokeStyle='rgba(255,255,255,.04)'; ctx.stroke();
+    ctx.font='9px JetBrains Mono,monospace';
+    ctx.fillStyle='rgba(140,130,110,.45)'; ctx.textAlign='right';
+    ctx.fillText(s.toFixed(2), PAD.l-4, yp2+3);
+  });
+
+  // φ boundary line at s=1 (off-canvas above — draw as dashed top border)
+  ctx.beginPath();
+  ctx.moveTo(PAD.l, p2Y+PAD.t); ctx.lineTo(PAD.l+iW, p2Y+PAD.t);
+  ctx.strokeStyle='rgba(212,168,67,.2)'; ctx.setLineDash([3,4]); ctx.stroke(); ctx.setLineDash([]);
+  ctx.font='9px JetBrains Mono,monospace'; ctx.fillStyle='rgba(212,168,67,.5)';
+  ctx.textAlign='right';
+  ctx.fillText('φ boundary s=1 →', PAD.l+iW, p2Y+PAD.t+10);
+
+  // Panel label
+  ctx.font='bold 9px JetBrains Mono,monospace'; ctx.fillStyle='rgba(144,96,208,.7)';
+  ctx.textAlign='left';
+  ctx.fillText('Jump spectrum s=1/(p(p−1)) — log p axis', PAD.l+6, p2Y+PAD.t+10);
+
+  // Draw spectrum dots and decay curve
+  // Smooth curve through (p, s)
+  ctx.beginPath();
+  specPrimes.forEach(function(p,i){
+    var xp2=specPX(p), yp2=specPY(specS[i]);
+    i===0 ? ctx.moveTo(xp2,yp2) : ctx.lineTo(xp2,yp2);
+  });
+  ctx.strokeStyle='rgba(144,96,208,.4)'; ctx.lineWidth=1; ctx.stroke();
+
+  // Dots
+  specPrimes.forEach(function(p,i){
+    var xp2=specPX(p), yp2=specPY(specS[i]);
+    var isHigh = (p===n&&isP_n);
+    ctx.beginPath(); ctx.arc(xp2, yp2, isHigh?6:3, 0, 2*Math.PI);
+    ctx.fillStyle = isHigh ? 'rgba(212,168,67,1)' : 'rgba(144,96,208,.7)';
+    ctx.fill();
+    if(p<=13 || isHigh){
+      ctx.font = isHigh ? 'bold 9px JetBrains Mono,monospace' : '8px JetBrains Mono,monospace';
+      ctx.fillStyle = isHigh ? 'rgba(212,168,67,.95)' : 'rgba(144,96,208,.6)';
+      ctx.textAlign='center';
+      ctx.fillText('p='+p, xp2, yp2-7);
+    }
+  });
+
+  // x-axis p labels (log)
+  [2,3,5,10,20,50,100,200].forEach(function(p){
+    if(p>300)return;
+    var xp2=specPX(p);
+    ctx.font='8px JetBrains Mono,monospace'; ctx.fillStyle='rgba(140,130,110,.4)';
+    ctx.textAlign='center';
+    ctx.fillText(p, xp2, p2Y+PH-PAD.b+14);
+  });
 }
 
 // ── Spectrum canvas ──
