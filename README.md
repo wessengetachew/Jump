@@ -1,7 +1,8 @@
-https://wessengetachew.github.io/Jump/
 # The Jump Theorem — Prime Checker
 
 **Part of *The Lift Survival Function* · W. Getachew · 2026 · math.NT**
+
+🔗 **[Live demo → wessengetachew.github.io/Jump/](https://wessengetachew.github.io/Jump/)**
 
 ---
 
@@ -68,6 +69,14 @@ J also encodes every prime zeta value simultaneously:
 
 $$J = \sum_{p} \frac{1}{p(p-1)} = \sum_{k=2}^{\infty} P(k)$$
 
+### Origin of C
+
+The constant C was first identified in the broader Modular Lifting Rings framework, documented at [**wessengetachew.github.io/Zeta/**](https://wessengetachew.github.io/Zeta/). The key identity is:
+
+$$C = \zeta(2) \cdot d_{FT} = \frac{\pi^2}{6} \cdot \prod_p \left(1 - \frac{2}{p^2}\right) \approx 0.530711806246\ldots$$
+
+The numerical value is recorded in OEIS as **A065469** (density of consecutive squarefree pairs, Tóth–Sándor 1989). What is new here is the geometric interpretation: C is the long-run fraction of coprime residues on ring M that survive the lift to ring M+1, verified empirically to M = 2,000,000. The framework was not invented but discovered — the geometry of the modular rings was already there.
+
 ---
 
 ## Interactive Features
@@ -117,15 +126,34 @@ No npm, no bundler, no framework. Pure HTML/CSS/JS.
 
 ## Context
 
-This document is **Layer 05** of a multi-part exposition titled *The Lift Survival Function*, which covers:
+This document is **Layer 05** of a multi-part exposition titled *The Lift Survival Function*. The broader project spans modular arithmetic geometry, analytic number theory, and interactive visualization. All pieces are self-contained HTML files — open any in a browser, no install required.
 
-- Modular ring coprimality and the Lift operation
-- The Euler product C(x) and its analytic continuation F(u)
-- The Jump Theorem and prime detection
-- Connections to the prime zeta function P(k) and Riemann zeta values
-- A GRH criterion via Dirichlet character extensions
+### The Lift Survival Function (main)
+🔗 [wessengetachew.github.io/Sierpi-ski/](https://wessengetachew.github.io/Sierpi-ski/)
 
-Related constants are catalogued on OEIS (C ≈ A065469).
+### This tool
+🔗 [wessengetachew.github.io/Jump/](https://wessengetachew.github.io/Jump/) — Jump Theorem Prime Checker (this repo)
+
+### Related interactive works
+
+| Link | Topic |
+|------|-------|
+| [Zeta](https://wessengetachew.github.io/Zeta/) | Origin of C; Modular Lifting Rings framework and the identity C = ζ(2)·d_FT |
+| [2025](https://wessengetachew.github.io/2025/) | Collected work 2025 |
+| [Transform](https://wessengetachew.github.io/Transform/) | Transform methods |
+| [Finite](https://wessengetachew.github.io/finite/) | Finite structures |
+| [Primes](https://wessengetachew.github.io/Primes/) | Prime visualizations |
+| [Farey](https://wessengetachew.github.io/Farey/) | Farey sequences |
+| [Composite](https://wessengetachew.github.io/Composite/) | Composite number structure |
+| [Ethiopian](https://wessengetachew.github.io/Ethiopian/) | Ethiopian mathematics |
+| [2πr](https://wessengetachew.github.io/2pir/) | Circle geometry |
+| [Rational](https://wessengetachew.github.io/Rational-/) | Rational approximations |
+| [Infinite Moduli](https://wessengetachew.github.io/Infinitemoduli/) | Infinite modular systems |
+| [Pythagorean](https://wessengetachew.github.io/Pythagorean-/) | Pythagorean structure |
+| [Phase](https://wessengetachew.github.io/Phase/) | Phase analysis |
+| [Gemini](https://wessengetachew.github.io/Gemini/) | Twin prime geometry |
+| [Rebuild](https://wessengetachew.github.io/Rebuild/) | Reconstruction methods |
+| [Goldbach](https://wessengetachew.github.io/Goldbach/) | Goldbach conjecture explorations |
 
 ---
 
@@ -140,4 +168,3 @@ Related constants are catalogued on OEIS (C ≈ A065469).
 ## License
 
 Research exposition. Please cite if you build on this work.
-
