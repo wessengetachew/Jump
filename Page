@@ -1,0 +1,67 @@
+
+> Interactive exposition of the Jump Theorem: primes are the unique discontinuities of a smooth Euler log-derivative. Includes prime checker, ring visualizer, and 4-panel PNG export. math.NT 2026.
+
+---
+
+## GitHub Pages Site Tagline
+
+> **The Jump Theorem** — Every prime is a tremor in a smooth function. Every composite passes in silence.
+
+**Live:** [wessengetachew.github.io/Jump/](https://wessengetachew.github.io/Jump/)
+
+---
+
+## Topics / Tags (add to GitHub repo)
+
+```
+number-theory  prime-numbers  euler-product  interactive-math
+mathematics    mathjax        visualization  analytic-number-theory
+```
+
+---
+
+## GitHub Pages `_config.yml` (if using Jekyll)
+
+```yaml
+title: "The Jump Theorem"
+description: "Primes as exact discontinuities of D(x) = d/dx log C(x). Interactive checker, ring visualizer, and four new constants. W. Getachew, 2026, math.NT."
+author: "W. Getachew"
+```
+
+---
+
+## Pinned Repository Blurb (for your GitHub profile)
+
+**The Lift Survival Function — Jump Theorem** · [Live](https://wessengetachew.github.io/Jump/)
+
+The function C(x) is an Euler product recording the fraction of coprime residues that survive the modular lift from ring M to M+1. Its log-derivative D(x) is smooth everywhere except at the primes, where it jumps by exactly 1/(p(p−1)). Given the jump size, the prime is recovered by a quadratic formula that always returns an integer — because the discriminant (2p−1)² is always a perfect square. The golden ratio φ is the unique irrational boundary where this integer property breaks down.
+
+Live interactive file: no dependencies, no build step.
+
+Part of a broader project: [wessengetachew.github.io/Sierpi-ski/](https://wessengetachew.github.io/Sierpi-ski/)
+
+---
+
+## Full Project Links (for README or profile)
+
+| Project | Link |
+|---------|------|
+| **Jump Theorem** (this repo) | [wessengetachew.github.io/Jump/](https://wessengetachew.github.io/Jump/) |
+| Lift Survival Function (main) | [wessengetachew.github.io/Sierpi-ski/](https://wessengetachew.github.io/Sierpi-ski/) |
+| Zeta / Origin of C | [wessengetachew.github.io/Zeta/](https://wessengetachew.github.io/Zeta/) |
+| 2025 collected work | [wessengetachew.github.io/2025/](https://wessengetachew.github.io/2025/) |
+| Transform | [wessengetachew.github.io/Transform/](https://wessengetachew.github.io/Transform/) |
+| Finite structures | [wessengetachew.github.io/finite/](https://wessengetachew.github.io/finite/) |
+| Primes | [wessengetachew.github.io/Primes/](https://wessengetachew.github.io/Primes/) |
+| Farey | [wessengetachew.github.io/Farey/](https://wessengetachew.github.io/Farey/) |
+| Composite | [wessengetachew.github.io/Composite/](https://wessengetachew.github.io/Composite/) |
+| Ethiopian | [wessengetachew.github.io/Ethiopian/](https://wessengetachew.github.io/Ethiopian/) |
+| 2πr | [wessengetachew.github.io/2pir/](https://wessengetachew.github.io/2pir/) |
+| Rational | [wessengetachew.github.io/Rational-/](https://wessengetachew.github.io/Rational-/) |
+| Infinite Moduli | [wessengetachew.github.io/Infinitemoduli/](https://wessengetachew.github.io/Infinitemoduli/) |
+| Pythagorean | [wessengetachew.github.io/Pythagorean-/](https://wessengetachew.github.io/Pythagorean-/) |
+| Phase | [wessengetachew.github.io/Phase/](https://wessengetachew.github.io/Phase/) |
+| Gemini | [wessengetachew.github.io/Gemini/](https://wessengetachew.github.io/Gemini/) |
+| Rebuild | [wessengetachew.github.io/Rebuild/](https://wessengetachew.github.io/Rebuild/) |
+| Goldbach | [wessengetachew.github.io/Goldbach/](https://wessengetachew.github.io/Goldbach/) |
+
