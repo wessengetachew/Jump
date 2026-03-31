@@ -71,9 +71,9 @@ body{
 }
 
 /* ── PROSE ── */
-p{margin-bottom:14px;font-size:1.05rem;color:rgba(220,210,190,.85);}
-p strong{color:#e8e0d0;}
-p em{color:rgba(196,155,56,.85);}
+p{margin-bottom:14px;font-size:1.05rem;color:#e8e4da;}
+p strong{color:#ffffff;}
+p em{color:#e8c060;}
 
 /* ── THEOREM BOX ── */
 .thm{
@@ -87,11 +87,11 @@ p em{color:rgba(196,155,56,.85);}
 .thm-label{
   font-family:'JetBrains Mono',monospace;
   font-size:9px;letter-spacing:.18em;
-  color:rgba(78,205,196,.7);
+  color:rgba(78,205,196,1);
   text-transform:uppercase;
   margin-bottom:10px;
 }
-.thm p{margin-bottom:8px;color:rgba(210,200,180,.9);}
+.thm p{margin-bottom:8px;color:#e8e4da;}
 
 .obs{
   background:rgba(255,255,255,.018);
@@ -103,17 +103,17 @@ p em{color:rgba(196,155,56,.85);}
 .obs-label{
   font-family:'JetBrains Mono',monospace;
   font-size:9px;letter-spacing:.15em;
-  color:rgba(196,155,56,.6);text-transform:uppercase;margin-bottom:8px;
+  color:rgba(196,155,56,1);text-transform:uppercase;margin-bottom:8px;
 }
 
 .proof{
   background:rgba(255,255,255,.012);
   border-left:2px solid rgba(140,130,110,.25);
   padding:12px 18px;margin:16px 0;
-  font-size:.92rem;color:rgba(180,170,150,.75);
+  font-size:.92rem;color:#ccc8be;
   font-style:italic;
 }
-.proof b{font-style:normal;color:rgba(180,170,150,.9);}
+.proof b{font-style:normal;color:#e8e4da;}
 
 /* ── FORMULA DISPLAY ── */
 .formula-block{
@@ -135,10 +135,10 @@ p em{color:rgba(196,155,56,.85);}
 /* ── TABLE ── */
 table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.9rem;}
 th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;
-  text-transform:uppercase;color:rgba(196,155,56,.6);
+  text-transform:uppercase;color:rgba(196,155,56,1);
   border-bottom:1px solid rgba(196,155,56,.2);padding:8px 12px;text-align:left;}
 td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.05);
-  color:rgba(200,190,170,.85);font-family:'JetBrains Mono',monospace;font-size:11px;}
+  color:#ddd8cc;font-family:'JetBrains Mono',monospace;font-size:11px;}
 tr:hover td{background:rgba(255,255,255,.02);}
 td.prime{color:#4ecdc4;}
 td.formula{color:#d4a843;}
@@ -159,23 +159,23 @@ td.result{color:#f0ece4;font-weight:500;}
 }
 .checker-desc{
   font-family:'JetBrains Mono',monospace;font-size:10px;
-  color:rgba(140,130,110,.6);letter-spacing:.06em;
+  color:#b8b0a0;letter-spacing:.06em;
   margin-bottom:20px;line-height:1.6;
 }
-.checker-desc strong{color:rgba(196,155,56,.7);}
+.checker-desc strong{color:#e8c060;}
 
 /* Preset buttons */
 .presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
 .preset-label{
   font-family:'JetBrains Mono',monospace;font-size:9px;
-  color:rgba(120,110,90,.6);letter-spacing:.1em;
+  color:#a09880;letter-spacing:.1em;
   align-self:center;text-transform:uppercase;
 }
 .preset-btn{
   font-family:'JetBrains Mono',monospace;font-size:10px;
   background:rgba(5,4,10,.6);
   border:1px solid rgba(255,255,255,.12);
-  color:rgba(200,185,155,.75);
+  color:#c8bea8;
   padding:5px 12px;cursor:pointer;border-radius:3px;
   transition:all .15s;
 }
@@ -207,10 +207,10 @@ td.result{color:#f0ece4;font-weight:500;}
 /* Display modes */
 .disp-row{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
 .disp-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
-  color:rgba(120,110,90,.6);text-transform:uppercase;}
+  color:#a09880;text-transform:uppercase;}
 .disp-row label{
   font-family:'JetBrains Mono',monospace;font-size:10px;
-  color:rgba(180,170,150,.75);
+  color:#c8c0b0;
   display:flex;align-items:center;gap:4px;cursor:pointer;
 }
 .disp-row label:hover{color:#e8e0d0;}
@@ -223,7 +223,7 @@ input[type=radio]{accent-color:#4ecdc4;}
   border-radius:3px;
   padding:16px 18px;
   font-family:'JetBrains Mono',monospace;font-size:12px;
-  line-height:1.8;color:rgba(160,150,130,.7);
+  line-height:1.8;color:#c8c0b0;
   white-space:pre-wrap;min-height:120px;
   margin-bottom:16px;
 }
@@ -238,7 +238,7 @@ input[type=radio]{accent-color:#4ecdc4;}
   cursor:pointer;border-radius:3px;transition:all .2s;letter-spacing:.06em;
 }
 .export-btn:hover{background:rgba(196,155,56,.2);border-color:#d4a843;color:#d4a843;}
-.export-note{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(120,110,90,.5);}
+.export-note{font-family:'JetBrains Mono',monospace;font-size:9px;color:#908878;}
 
 /* ── CHECKER TABS ── */
 .checker-tabs{display:flex;gap:0;margin-bottom:18px;border-bottom:1px solid rgba(255,255,255,.08);}
@@ -281,7 +281,7 @@ footer{
   margin-top:64px;padding:20px 24px;
   border-top:1px solid rgba(196,155,56,.1);
   font-family:'JetBrains Mono',monospace;font-size:9px;
-  letter-spacing:.08em;color:rgba(120,110,90,.5);
+  letter-spacing:.08em;color:#908878;
   text-align:center;
 }
 </style>
@@ -310,7 +310,7 @@ Take its <strong>log-derivative D(x) = d/dx log C(x)</strong>. This function is 
 <div class="formula-block">
   <div class="formula-label">Log-derivative of C(x)</div>
   \[D(x) = \frac{d}{dx}\log C(x) = -\sum_{p \,>\, x+1} \frac{1}{p^2 - x - 1}\]
-  <p style="margin-top:10px;font-size:.88rem;color:rgba(160,150,130,.65);font-family:'JetBrains Mono',monospace;">
+  <p style="margin-top:10px;font-size:.88rem;color:#b8b0a0;font-family:'JetBrains Mono',monospace;">
     Sum over <em>active</em> primes only — those not yet saturated at position x. As x crosses p−1, the term for p exits the sum, causing the jump.
   </p>
 </div>
@@ -348,6 +348,13 @@ At every prime p, at exactly x = p−1: the needle jumps. Sharp, instantaneous, 
   <div class="obs-label">Observation — Comparison with von Mangoldt Λ(n)</div>
   <p>
     The classical von Mangoldt function Λ(n) = log p also detects primes through jumps — but it carries additional events at prime powers p², p³, …, making it harder to isolate a single prime. Both approaches have contributed deeply to analytic number theory. Here D(x) jumps only at primes. Prime powers and composites pass in silence. The signal is unambiguous: one jump, one prime.
+  </p>
+</div>
+
+<div class="obs">
+  <div class="obs-label">Classical Context — Chebyshev, Euler Products, and the Log-Derivative Tradition</div>
+  <p>
+    D(x) belongs to a long and distinguished tradition. Chebyshev's functions ψ(x) = Σ_{p^k ≤ x} log p and ϑ(x) = Σ_{p ≤ x} log p are the classical prime-detecting step functions, and the log-derivative of the Riemann zeta function −ζ′(s)/ζ(s) = Σ Λ(n)/n^s encodes the same arithmetic in the complex plane. The present D(x) is a log-derivative in the same spirit — but taken with respect to a real Euler product C(x) built from modular lifting geometry rather than from the Riemann zeta function directly. Nothing here competes with or replaces that classical machinery. D(x) is offered as a companion object: a real-variable step function whose jumps are at primes only, with exact, invertible jump sizes, arising from a different but related Euler product structure. The debt to Chebyshev, Euler, and the entire analytic number theory tradition is total and gratefully acknowledged.
   </p>
 </div>
 
@@ -393,7 +400,7 @@ For any integer prime p, the discriminant 1&nbsp;+&nbsp;4p(p−1)&nbsp;=&nbsp;(2
 <div class="obs">
   <div class="obs-label">The Phantom Jump Position — x = φ−1 = 1/φ ≈ 0.618</div>
   <p>The phantom jump at s&nbsp;=&nbsp;1 would occur at position x&nbsp;=&nbsp;φ−1&nbsp;=&nbsp;1/φ&nbsp;≈&nbsp;0.618. This lies in the interval (0,&nbsp;1) — <em>before the first real prime enters the sum at x&nbsp;=&nbsp;1</em> (where p&nbsp;=&nbsp;2 saturates). The boundary of the spectrum is not at infinity. It sits in the gap prior to the onset of arithmetic, at an irrational position no integer prime can occupy.</p>
-  <p style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(140,130,110,.55);">
+  <p style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#a09880;">
     φ − 1 = 1/φ ≈ 0.61803… &nbsp;·&nbsp; first prime enters at x = 1 &nbsp;·&nbsp; phantom precedes all primes
   </p>
 </div>
@@ -463,7 +470,7 @@ For any integer prime p, the discriminant 1&nbsp;+&nbsp;4p(p−1)&nbsp;=&nbsp;(2
     <div id="jt-canvas-wrap">
       <canvas id="jt-triple-canvas"></canvas>
     </div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(120,110,90,.5);margin-bottom:12px;line-height:1.7;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#908878;margin-bottom:12px;line-height:1.7;">
       Top: C(x) — Euler product decay.&nbsp;&nbsp;Middle: D(x) — log-derivative with prime jumps.&nbsp;&nbsp;Bottom: Jump spectrum s = 1/(p(p−1)) log-scale.
     </div>
   </div>
@@ -486,7 +493,7 @@ The Jump Theorem forces four constants into existence. They are not chosen — t
 <div class="thm" style="border-left-color:rgba(196,155,56,.6);margin-bottom:16px;">
   <div class="thm-label" style="color:rgba(196,155,56,.7);">Constant C — Lift Survival Rate</div>
   <p>\[C = \prod_{p} \frac{p^2-2}{p^2-1} = \zeta(2)\cdot d_{FT} \approx 0.530711806246\ldots\]</p>
-  <p style="font-size:.92rem;color:rgba(180,170,150,.8);margin-top:6px;">
+  <p style="font-size:.92rem;color:#d8d0c0;margin-top:6px;">
     The long-run fraction of coprime residues that survive the lift from ring M to M+1. Also F(2), where F(u) is the analytic lift function. Known to Tóth–Sándor (1989) as the density of consecutive squarefree pairs — OEIS A065469. The identity C = ζ(2)·d<sub>FT</sub> = (π²/6)·∏<sub>p</sub>(1−2/p²) is algebraically equivalent to the product formula. <strong style="color:rgba(196,155,56,.8);">New here: the geometric interpretation as a lift survival rate, and C = F(2).</strong>
   </p>
 </div>
@@ -495,7 +502,7 @@ The Jump Theorem forces four constants into existence. They are not chosen — t
 <div class="thm" style="border-left-color:rgba(196,155,56,.6);margin-bottom:16px;">
   <div class="thm-label" style="color:rgba(196,155,56,.7);">Constant J — Total Jump Content</div>
   <p>\[J = \sum_{p} \frac{1}{p(p-1)} = \sum_{k=2}^{\infty} P(k), \qquad P(k) = \sum_{p} \frac{1}{p^k} \approx 0.773154968933\ldots\]</p>
-  <p style="font-size:.92rem;color:rgba(180,170,150,.8);margin-top:6px;">
+  <p style="font-size:.92rem;color:#d8d0c0;margin-top:6px;">
     Sum of every prime's jump contribution to D(x). The equality J = ∑P(k) follows from expanding 1/(p(p−1)) = 1/p² + 1/p³ + ··· and swapping the order of summation — so J simultaneously encodes every prime zeta value P(2), P(3), P(4), … in a single convergent expression. <strong style="color:rgba(196,155,56,.8);">Appears to be new.</strong>
   </p>
 </div>
@@ -504,7 +511,7 @@ The Jump Theorem forces four constants into existence. They are not chosen — t
 <div class="thm" style="border-left-color:rgba(144,96,208,.5);margin-bottom:16px;">
   <div class="thm-label" style="color:rgba(144,96,208,.7);">Constant D₀ — Log-Derivative Base</div>
   <p>\[D_0 = D(0) = \sum_{p} \frac{1}{p^2-1} = \sum_p \frac{1}{(p-1)(p+1)} \approx 0.551691597558\ldots\]</p>
-  <p style="font-size:.92rem;color:rgba(180,170,150,.8);margin-top:6px;">
+  <p style="font-size:.92rem;color:#d8d0c0;margin-top:6px;">
     The value of the log-derivative D(x) = d/dx log C(x) evaluated at x = 0 — before any prime has saturated, when all terms are active. It is the baseline from which every prime jump subtracts. <strong style="color:rgba(144,96,208,.8);">Appears to be new.</strong>
   </p>
 </div>
@@ -513,7 +520,7 @@ The Jump Theorem forces four constants into existence. They are not chosen — t
 <div class="thm" style="border-left-color:rgba(43,191,176,.5);margin-bottom:16px;">
   <div class="thm-label" style="color:rgba(43,191,176,.7);">Constant T — Correction Term</div>
   <p>\[T = \sum_{p} \frac{1}{p(p^2-1)} = \sum_p \frac{1}{p(p-1)(p+1)} \approx 0.221463371375\ldots\]</p>
-  <p style="font-size:.92rem;color:rgba(180,170,150,.8);margin-top:6px;">
+  <p style="font-size:.92rem;color:#d8d0c0;margin-top:6px;">
     The algebraic gap between J and D₀. Not a residual — T is structurally forced by the partial fraction identity below. <strong style="color:rgba(43,191,176,.7);">Appears to be new.</strong>
   </p>
 </div>
@@ -523,7 +530,7 @@ The Jump Theorem forces four constants into existence. They are not chosen — t
   <div class="formula-label">Theorem — J = D₀ + T (exact algebraic identity)</div>
   \[\frac{1}{p(p-1)} = \frac{1}{p^2-1} + \frac{1}{p(p^2-1)} \quad \text{for every prime } p\]
   \[\Rightarrow\quad J = D_0 + T \qquad (0.773154\ldots = 0.551691\ldots + 0.221463\ldots)\]
-  <p style="margin-top:10px;font-size:.88rem;color:rgba(160,150,130,.65);font-family:'JetBrains Mono',monospace;">
+  <p style="margin-top:10px;font-size:.88rem;color:#b8b0a0;font-family:'JetBrains Mono',monospace;">
     Proof: multiply out 1/(p²−1) + 1/(p(p²−1)) = (p+1)/(p(p²−1)) + 1/(p(p²−1)) = (p+1+1)/(p(p²−1)) — no, simpler: 1/(p²−1) + 1/(p(p²−1)) = p/(p(p²−1)) + 1/(p(p²−1)) = (p+1)/(p(p²−1)) = 1/(p(p−1)). ∎ Summing over all primes gives J = D₀ + T exactly.
   </p>
 </div>
@@ -532,7 +539,7 @@ The Jump Theorem forces four constants into existence. They are not chosen — t
 <div class="obs">
   <div class="obs-label">The Analytic Lift Function F(u)</div>
   <p>
-    The analytic continuation \(F(u) = \prod_p \frac{p^2 - u}{p^2 - 1}\) is an entire function in the Laguerre–Pólya class with zeros exactly at \(u = p^2\) (prime squares).
+    The analytic continuation \(F(u) = \prod_p \frac{p^2 - u}{p^2 - 1}\) is an entire function whose zeros lie exactly at \(u = p^2\) (prime squares) — all real and positive. Its structure is consistent with membership in the Laguerre–Pólya class (entire functions that are uniform limits of polynomials with only real roots, in the sense of Laguerre 1898 and Pólya 1913), though a complete verification of that classification is not claimed here and would require careful analysis of the growth order and the convergence of the Hadamard product. The observation is offered as a direction for further study.
   </p>
   <p style="margin-top:6px;">
     Key values: F(0) = ζ(2) = π²/6 &nbsp;·&nbsp; F(1) = 1 &nbsp;·&nbsp; F(2) = C &nbsp;·&nbsp; F(p²) = 0 for each prime p.
@@ -1569,4 +1576,4 @@ window.jtExportPNG = window.jtExportPNG || function(){ alert('Export not availab
 </script>
 
 </body>
-</html>
+  </html>
